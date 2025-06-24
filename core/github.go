@@ -47,7 +47,7 @@ func GetUserOrOrganization(login string, client *github.Client) (*GithubOwner, e
   }
   return &GithubOwner{
     Login:     user.Login,
-    ID:        user.ID,
+    ID: convertInt64ToInt(user.ID),
     Type:      user.Type,
     Name:      user.Name,
     AvatarURL: user.AvatarURL,
@@ -77,7 +77,7 @@ func GetRepositoriesFromOwner(login *string, client *github.Client) ([]*GithubRe
       if !*repo.Fork {
         r := GithubRepository{
           Owner:         repo.Owner.Login,
-          ID:            repo.ID,
+          ID: convertInt64ToInt(repo.ID),
           Name:          repo.Name,
           FullName:      repo.FullName,
           CloneURL:      repo.CloneURL,
@@ -109,7 +109,7 @@ func GetOrganizationMembers(login *string, client *github.Client) ([]*GithubOwne
       return allMembers, err
     }
     for _, member := range members {
-      allMembers = append(allMembers, &GithubOwner{Login: member.Login, ID: member.ID, Type: member.Type})
+      allMembers = append(allMembers, &GithubOwner{Login: member.Login, ID: convertInt64ToInt(member.ID), Type: member.Type})
     }
     if resp.NextPage == 0 {
       break
