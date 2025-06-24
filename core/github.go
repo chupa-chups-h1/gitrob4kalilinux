@@ -1,3 +1,10 @@
+func convertInt64ToInt(i *int64) *int {
+    if i == nil {
+        return nil
+    }
+    val := int(*i) // Перетворюємо int64 → int
+    return &val
+}
 package core
 
 import (
