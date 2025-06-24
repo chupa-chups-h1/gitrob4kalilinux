@@ -38,7 +38,12 @@ func (b *binaryFileSystem) Exists(prefix string, filepath string) bool {
 }
 
 func BinaryFileSystem(root string) *binaryFileSystem {
-  fs := &assetfs.AssetFS{Asset, AssetDir, AssetInfo, root}
+ assets := &assetfs.AssetFS{
+    Asset:     Asset,     // Функція для отримання файлу
+    AssetDir:  AssetDir,  // Функція для отримання папки
+    AssetInfo: AssetInfo, // Функція для інформації про файл
+    Prefix:    "data",    // Базовий шлях (можна змінити)
+}
   return &binaryFileSystem{
     fs,
   }
